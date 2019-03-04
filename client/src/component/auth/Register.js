@@ -47,7 +47,7 @@ class Register extends Component {
                     value={this.state.email}
                     onChange={this.onChange}
                   />
-                  <small classNameName="form-text text-muted">
+                  <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
                     a Gravatar email
                   </small>
