@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser } from "./actions/authAction";
@@ -11,6 +11,8 @@ import Landing from "./component/layout/Landing";
 import Login from "./component/auth/Login";
 import Register from "./component/auth/Register";
 import Dashboard from "./component/dashboard/Dashboard";
+import CreateProfile from "./component/create-profile/CreateProfile";
+import PrivateRoute from "./component/common/PrivateRoute";
 
 import "./App.css";
 
@@ -31,7 +33,16 @@ class App extends Component {
             <div className="container">
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
-              <Route exact path="/dashboard" component={Dashboard} />
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+              </Switch>
             </div>
             <Footer />
           </div>
