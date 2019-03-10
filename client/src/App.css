@@ -38,7 +38,7 @@ img {
   color: #bbb !important;
 }
 footer {
-  position: fixed;
+  /* position: fixed; */
   height: 55px;
   bottom: 0;
   line-height: 0px;

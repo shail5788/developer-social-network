@@ -4,11 +4,21 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileAction";
 import Spinner from "../common/Spinner";
+import ProfileOperations from "./ProfileOperations";
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.deleteAccount = this.deleteAccount.bind(this);
+  }
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+  deleteAccount(e) {
+    e.preventDefault();
+    alert("Sdfsd");
+  }
+
   render() {
     const { user } = this.props.auth;
     const { loader, profile } = this.props.profile;
@@ -17,7 +27,21 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />;
     } else {
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4>Wecome to dashboard</h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              welcome to
+              <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
+            </p>
+            <ProfileOperations />
+
+            <div style={{ marginBottom: "60px;" }}>
+              <button onClick={this.deleteAccount} className="btn btn-danger">
+                Delete My Account
+              </button>
+            </div>
+          </div>
+        );
       } else {
         dashboardContent = (
           <div>
