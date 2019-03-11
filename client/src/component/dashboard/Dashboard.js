@@ -35,7 +35,7 @@ class Dashboard extends Component {
             </p>
             <ProfileOperations />
 
-            <div style={{ marginBottom: "60px;" }}>
+            <div style={{ marginBottom: "60px" }}>
               <button onClick={this.deleteAccount} className="btn btn-danger">
                 Delete My Account
               </button>

@@ -72,7 +72,7 @@ class EditProfile extends Component {
         website: profile.website,
         location: profile.location,
         status: profile.status,
-        skills: profile.skills,
+        skills: skillsCSV,
         githubusername: profile.githubusername,
         bio: profile.bio,
         tiwitter: profile.twitter,
@@ -129,6 +129,7 @@ class EditProfile extends Component {
                 placeholder="Facebook profile url"
                 name="facebook"
                 icon="fab fa-facebook"
+                onChange={this.onChange}
                 value={this.state.facebook}
                 errors={errors.facebook}
               />
