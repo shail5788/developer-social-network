@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { deleteExperience } from "../../actions/profileAction";
 import PropTypes from "prop-types";
 
@@ -26,25 +25,33 @@ class Experience extends Component {
             onClick={this.onClick.bind(this, exp._id)}
           >
             Delete
+          </button>{" "}
+          <button
+            className="btn btn-info"
+            onClick={this.onClick.bind(this, exp._id)}
+          >
+            Edit
           </button>
         </td>
       </tr>
     ));
     return (
-      <div>
-        <h4 className="mt-4">Experience Credentials</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Company</th>
-              <th>Location</th>
-              <th>Time</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>{experienceRow}</tbody>
-        </table>
+      <div className="row">
+        <div className="col-md-12">
+          <h4>Experience Credentials</h4>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>{experienceRow}</tbody>
+          </table>
+        </div>
       </div>
     );
   }

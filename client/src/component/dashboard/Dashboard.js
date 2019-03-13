@@ -9,6 +9,7 @@ import {
 import Spinner from "../common/Spinner";
 import ProfileOperations from "./ProfileOperations";
 import Experience from "./Experience";
+import Educations from "./Educations";
 
 class Dashboard extends Component {
   constructor() {
@@ -32,17 +33,20 @@ class Dashboard extends Component {
     } else {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
-          <div>
-            <p className="lead text-muted">
-              welcome to
-              <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
-            </p>
-            <ProfileOperations />
-            <Experience experience={profile.experience} />
-            <div style={{ marginBottom: "60px" }}>
-              <button onClick={this.deleteAccount} className="btn btn-danger">
-                Delete My Account
-              </button>
+          <div className="row">
+            <div className="col-md-12">
+              <p className="lead text-muted">
+                welcome to
+                <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
+              </p>
+              <ProfileOperations />
+              <Experience experience={profile.experience} />
+              <Educations education={profile.education} />
+              <div style={{ marginBottom: "60px" }}>
+                <button onClick={this.deleteAccount} className="btn btn-danger">
+                  Delete My Account
+                </button>
+              </div>
             </div>
           </div>
         );
@@ -62,9 +66,7 @@ class Dashboard extends Component {
       <div className="dashboard">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <div className="col-md-4">{dashboardContent}</div>
-            </div>
+            <div className="col-md-12">{dashboardContent}</div>
           </div>
         </div>
       </div>
