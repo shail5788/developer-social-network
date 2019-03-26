@@ -2,14 +2,30 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { deleteExperience } from "../../actions/profileAction";
 import PropTypes from "prop-types";
+import EditModal from "../common/EditModal";
 
 import Moment from "react-moment";
 
 class Experience extends Component {
+  constructor(...arg) {
+    super(...arg);
+    this.state = {
+      experience: null,
+      modalHeading: "Edit User Modal",
+      modalShow: false
+    };
+  }
   onClick(id) {
     this.props.deleteExperience(id);
   }
+  onEditClick(exp) {
+    // console.log(exp);
+    this.setState({ modalShow: true });
+    this.setState({ experience: exp });
+  }
   render() {
+    let modalClose = () => this.setState({ modalShow: false });
+    const { experience } = this.state;
     const experienceRow = this.props.experience.map(exp => (
       <tr key={exp._id}>
         <td>{exp.title}</td>
@@ -28,7 +44,9 @@ class Experience extends Component {
           </button>{" "}
           <button
             className="btn btn-info"
-            onClick={this.onClick.bind(this, exp._id)}
+            data-toggle="modal"
+            data-target="#EditModel"
+            onClick={this.onEditClick.bind(this, exp)}
           >
             Edit
           </button>
@@ -36,22 +54,40 @@ class Experience extends Component {
       </tr>
     ));
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <h4>Experience Credentials</h4>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Company</th>
-                <th>Location</th>
-                <th>Time</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>{experienceRow}</tbody>
-          </table>
+      <div className="experience">
+        <div className="row">
+          <div className="col-md-12">
+            <h4>Experience Credentials</h4>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Company</th>
+                  <th>Location</th>
+                  <th>Time</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>{experienceRow}</tbody>
+            </table>
+          </div>
         </div>
+        <EditModal
+          experience={experience}
+          modalHeading={this.state.modalHeading}
+          show={this.state.modalShow}
+          onHide={modalClose}
+        />
+        {/* {experience ? (
+          <EditModal
+            experience={experience}
+            modalHeading={this.state.modalHeading}
+            show={this.state.modalShow}
+            onHide={modalClose}
+          />
+        ) : (
+          ""
+        )} */}
       </div>
     );
   }
