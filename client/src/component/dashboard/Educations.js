@@ -2,17 +2,31 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { deleteEducation } from "../../actions/profileAction";
 import PropTypes from "prop-types";
-
 import Moment from "react-moment";
-
+import EditModal from "../common/EditModal";
 class Educations extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      educations: null,
+      modalHeading: "Edit Mode for Education",
+      modalShow: false
+    };
+  }
+
   onClick(id) {
     this.props.deleteEducation(id);
   }
-  onClickEdit(e) {
-    e.preventDefault();
+
+  onClickEdit(edu) {
+    this.setState({ modalShow: true });
+    this.setState({ educations: edu }, () => {
+      // console.log(this.state.eductions);
+    });
   }
   render() {
+    let modalClose = () => this.setState({ modalShow: false });
+    const { educations } = this.state;
     const educationRow = this.props.education.map(edu => (
       <tr key={edu._id}>
         <td>{edu.school}</td>
@@ -31,7 +45,7 @@ class Educations extends Component {
           </button>{" "}
           <button
             className="btn btn-info"
-            onClick={this.onClickEdit.bind(this, edu._id)}
+            onClick={this.onClickEdit.bind(this, edu)}
           >
             Edit
           </button>
@@ -55,6 +69,12 @@ class Educations extends Component {
             <tbody>{educationRow}</tbody>
           </table>
         </div>
+        <EditModal
+          educations={educations}
+          modalHeading={this.state.modalHeading}
+          show={this.state.modalShow}
+          onHide={modalClose}
+        />
       </div>
     );
   }

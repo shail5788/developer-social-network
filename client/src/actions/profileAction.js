@@ -4,7 +4,9 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERROR,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  UPDATE_EXPERIENCE,
+  UPDATE_EDUCATION
 } from "./type";
 
 export const getCurrentProfile = () => dispatch => {
@@ -68,6 +70,22 @@ export const addEducation = (expData, history) => dispatch => {
     .post("/api/profile/education", expData)
     .then(res => history.push("/dashboard"))
     .catch(err =>
+      dispatch({
+        type: GET_ERROR,
+        payload: err.response.data
+      })
+    );
+};
+export const updateEexperience = experience => dispatch => {
+  axios
+    .put("/api/profile/experience", experience)
+    .then(res =>
+      dispatch({
+        type: UPDATE_EXPERIENCE,
+        payload: res.data
+      })
+    )
+    .then(err =>
       dispatch({
         type: GET_ERROR,
         payload: err.response.data

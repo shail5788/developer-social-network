@@ -78,16 +78,7 @@ class Experience extends Component {
           show={this.state.modalShow}
           onHide={modalClose}
         />
-        {/* {experience ? (
-          <EditModal
-            experience={experience}
-            modalHeading={this.state.modalHeading}
-            show={this.state.modalShow}
-            onHide={modalClose}
-          />
-        ) : (
-          ""
-        )} */}
+        
       </div>
     );
   }
