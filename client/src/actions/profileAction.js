@@ -76,9 +76,9 @@ export const addEducation = (expData, history) => dispatch => {
       })
     );
 };
-export const updateEexperience = experience => dispatch => {
+export const updateEexperience = (experience, profileID) => dispatch => {
   axios
-    .put("/api/profile/experience", experience)
+    .put(`/api/profile/experience/${profileID}`, experience)
     .then(res =>
       dispatch({
         type: UPDATE_EXPERIENCE,

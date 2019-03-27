@@ -74,11 +74,11 @@ class Experience extends Component {
         </div>
         <EditModal
           experience={experience}
+          profileID={this.props.profileId}
           modalHeading={this.state.modalHeading}
           show={this.state.modalShow}
           onHide={modalClose}
         />
-        
       </div>
     );
   }

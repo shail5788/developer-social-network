@@ -235,11 +235,33 @@ router.post(
 );
 
 router.put(
-  "/experience",
+  "/experience/:profileID",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("updating experience");
-    console.log(req.body);
+    Profile.findOne({ _id: req.params.profileID })
+      .then(profile => {
+        const newExp = req.body;
+        console.log(newExp);
+        const SelectedIndex = profile.experience.findIndex(
+          item => item._id === newExp._id
+        );
+        console.log(SelectedIndex);
+        // if (SelectedIndex < 0) {
+        //   res.json({ status: 400, message: "experience not found" });
+        // }
+        // let foundItem = profile.experience[SelectedIndex];
+        // foundItem = newExp;
+        // profile.experience[SelectedIndex] = foundItem;
+        // console.log(profile.experience);
+        //Profile.save();
+      })
+      .catch(err => {
+        console.log(err);
+        res.json(err);
+      });
+
+    // console.log(req.params.profileID);
+    // console.log(req.body);
   }
 );
 // @route   DELETE api/profile/experience/:exp_id

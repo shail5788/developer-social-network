@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, FormGroup } from "react-bootstrap";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
 import TextFieldGroup from "./TextFieldGroup";
 import TextAreaFieldGroup from "./TextAreaFieldGroup";
 import { updateEexperience } from "../../actions/profileAction";
@@ -26,7 +28,9 @@ class EditModal extends Component {
   }
   onChange(e) {
     e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
+    let exp = { ...this.state.experience };
+    exp[e.target.name] = e.target.value;
+    this.setState({ experience: exp });
   }
   onCheck(e) {
     this.setState({
@@ -36,7 +40,8 @@ class EditModal extends Component {
   }
   submitExperience(e) {
     e.preventDefault();
-    console.log("submit experience");
+    console.log([e.target.name]);
+    this.props.updateEexperience(this.state.experience, this.props.profileID);
   }
 
   submitEducation(e) {
@@ -232,4 +237,10 @@ class EditModal extends Component {
     );
   }
 }
-export default EditModal;
+EditModal.propTypes = {
+  updateEexperience: PropTypes.func.isRequired
+};
+export default connect(
+  null,
+  { updateEexperience }
+)(EditModal);
